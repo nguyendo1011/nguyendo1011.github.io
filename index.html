@@ -77,9 +77,13 @@
 
   .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: 24px; }
 
+  html { scroll-padding-top: 84px; }
+  /* Fixed nav: lives outside the ScrollSmoother-transformed content */
+  #smooth-content { padding-top: 68px; }
+
   /* ---- Nav ---- */
   nav {
-    position: sticky; top: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--nav-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -322,12 +326,9 @@
     border-top: 1px solid var(--line);
   }
 
-  /* ---- Reveal ---- */
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
-  .reveal.in { opacity: 1; transform: none; }
+  /* ---- Reveal: initial states set by GSAP, so no-JS users see everything ---- */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
     .eyebrow .dot { animation: none; }
     header > * { animation: none; }
     .slide { transition: none; }
@@ -364,6 +365,9 @@
     </div>
   </div>
 </nav>
+
+<div id="smooth-wrapper">
+<div id="smooth-content">
 
 <header class="wrap">
   <div class="eyebrow"><span class="dot"></span>Available for Shopify projects</div>
@@ -527,7 +531,7 @@
     <div class="sec-label">Skills</div>
     <h2>What I work with</h2>
   </div>
-  <div class="skills reveal">
+  <div class="skills">
     <span class="chip core">Shopify / Shopify API</span>
     <span class="chip core">Liquid</span>
     <span class="chip core">JavaScript</span>
@@ -561,6 +565,12 @@
 
 <footer>© 2026 Do Thanh Nhat Nguyen · Shopify Developer, Da Nang, Viet Nam</footer>
 
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
 <script>
   // ---- Theme toggle ----
   const root = document.documentElement;
@@ -570,11 +580,40 @@
     localStorage.setItem('theme', next);
   });
 
-  // ---- Reveal on scroll ----
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // ---- GSAP: inertia scroll (Locomotive-style) + scroll-linked reveals ----
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let smoother = null;
+  if (!reduceMotion && window.gsap && window.ScrollSmoother) {
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper', content: '#smooth-content',
+      smooth: 1.2, smoothTouch: false, effects: false,
+    });
+
+    // Reveals: jobs and contact card rise in as they enter
+    gsap.set('.reveal', { opacity: 0, y: 40 });
+    ScrollTrigger.batch('.reveal', {
+      start: 'top 88%',
+      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .12, overwrite: true }),
+    });
+
+    // Skill chips: quick cascade for scannability
+    gsap.set('.skills .chip', { opacity: 0, y: 22 });
+    ScrollTrigger.batch('.skills .chip', {
+      start: 'top 92%',
+      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .45, ease: 'power2.out', stagger: .05, overwrite: true }),
+    });
+  }
+
+  // Anchor links: route through the smoother when active, native otherwise
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (!smoother) return;                       // native scroll + scroll-padding-top handles it
+    e.preventDefault();
+    if (href.length < 2) { smoother.scrollTo(0, true); return; }
+    const t = document.querySelector(href);
+    if (t) smoother.scrollTo(t, true, 'top 84px');
+  }));
 
   // ---- Project slider: center slide active, sides faded ----
   const track = document.getElementById('track');
