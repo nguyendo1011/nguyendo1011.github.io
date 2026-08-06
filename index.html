@@ -150,11 +150,11 @@
   }
   /* Hero entrance: staggered slide-up (storytelling: name, role, pitch, action) */
   @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-  header > * { animation: rise .6s cubic-bezier(.16, 1, .3, 1) backwards; }
-  header > h1 { animation-delay: .08s; }
-  header > .lede { animation-delay: .16s; }
-  header > .hero-cta { animation-delay: .24s; }
-  header > .hero-meta { animation-delay: .34s; }
+  header .wrap > * { animation: rise .7s cubic-bezier(.16, 1, .3, 1) backwards; }
+  header .wrap > h1 { animation-delay: .12s; }
+  header .wrap > .lede { animation-delay: .24s; }
+  header .wrap > .hero-cta { animation-delay: .36s; }
+  header .wrap > .hero-meta { animation-delay: .5s; }
   .lede {
     font-size: clamp(1rem, 2vw, 1.15rem); color: var(--ink-soft);
     max-width: 600px; margin-bottom: 36px;
@@ -330,7 +330,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .eyebrow .dot { animation: none; }
-    header > * { animation: none; }
+    header .wrap > * { animation: none; }
     .slide { transition: none; }
     .slider-shell.shown .slide { animation: none; }
     .btn, .chip { transition: none; }
@@ -369,7 +369,8 @@
 <div id="smooth-wrapper">
 <div id="smooth-content">
 
-<header class="wrap">
+<header>
+<div class="wrap">
   <div class="eyebrow"><span class="dot"></span>Available for Shopify projects</div>
   <h1>Do Thanh Nhat Nguyen<br><span class="accent">Shopify Developer</span></h1>
   <p class="lede">
@@ -389,6 +390,7 @@
     <div><strong>15+</strong><span>Stores launched</span></div>
     <div><strong>100%</strong><span>Shopify focused</span></div>
   </div>
+</div>
 </header>
 
 <section id="projects" class="slider-section">
@@ -594,14 +596,14 @@
     gsap.set('.reveal', { opacity: 0, y: 40 });
     ScrollTrigger.batch('.reveal', {
       start: 'top 88%',
-      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .12, overwrite: true }),
+      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .85, ease: 'power3.out', stagger: .2, overwrite: true }),
     });
 
     // Skill chips: quick cascade for scannability
     gsap.set('.skills .chip', { opacity: 0, y: 22 });
     ScrollTrigger.batch('.skills .chip', {
       start: 'top 92%',
-      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .45, ease: 'power2.out', stagger: .05, overwrite: true }),
+      onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .55, ease: 'power2.out', stagger: .09, overwrite: true }),
     });
   }
 
@@ -615,18 +617,30 @@
     if (t) smoother.scrollTo(t, true, 'top 84px');
   }));
 
-  // ---- Project slider: center slide active, sides faded ----
+  // ---- Project slider: true infinite loop via a cloned set ----
+  // Slides are duplicated once; whenever the scroll settles inside the clone
+  // set, the position folds back by one set-width with zero visible movement.
   const track = document.getElementById('track');
+  const originals = [...track.querySelectorAll('.slide')];
+  const n = originals.length;
+  originals.forEach(s => {
+    const c = s.cloneNode(true);
+    c.setAttribute('aria-hidden', 'true');
+    c.querySelectorAll('a, [tabindex]').forEach(el => el.tabIndex = -1);
+    if (c.tagName === 'A') c.tabIndex = -1;
+    track.appendChild(c);
+  });
   const slides = [...track.querySelectorAll('.slide')];
   const dotsBox = document.getElementById('sDots');
-  slides.forEach((_, i) => {
+  originals.forEach((_, i) => {
     const b = document.createElement('button');
     b.setAttribute('aria-label', 'Go to project ' + (i + 1));
-    b.addEventListener('click', () => centerSlide(i));
+    b.addEventListener('click', () => { normalize(); centerSlide(i); });
     dotsBox.appendChild(b);
   });
   const dots = [...dotsBox.children];
 
+  const setWidth = () => slides[n].offsetLeft - slides[0].offsetLeft;
   function centerSlide(i, behavior = 'smooth') {
     const s = slides[i];
     track.scrollTo({ left: s.offsetLeft - (track.clientWidth - s.clientWidth) / 2, behavior });
@@ -640,19 +654,29 @@
     });
     return best;
   }
-  let raf = 0;
+  function normalize() {
+    if (activeIndex() >= n) track.scrollLeft -= setWidth();
+  }
+  let raf = 0, settle = 0;
   function update() {
     const i = activeIndex();
     slides.forEach((s, j) => s.classList.toggle('active', j === i));
-    dots.forEach((d, j) => d.classList.toggle('on', j === i));
+    dots.forEach((d, j) => d.classList.toggle('on', j === i % n));
   }
   track.addEventListener('scroll', () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(update);
+    clearTimeout(settle);
+    settle = setTimeout(normalize, 150);
   }, { passive: true });
 
-  // Looping navigation: last -> first, first -> last
-  const step = dir => centerSlide((activeIndex() + dir + slides.length) % slides.length);
+  // Looping navigation: stepping past either end crosses into the clone set seamlessly
+  function step(dir) {
+    normalize();
+    let i = activeIndex();
+    if (dir < 0 && i === 0) { track.scrollLeft += setWidth(); i = n; }
+    centerSlide(i + dir);
+  }
   document.getElementById('sPrev').addEventListener('click', () => step(-1));
   document.getElementById('sNext').addEventListener('click', () => step(1));
   track.addEventListener('keydown', e => {
@@ -663,13 +687,13 @@
   // Start centered on the first slide; keep the active slide centered on resize
   centerSlide(0, 'auto');
   update();
-  addEventListener('resize', () => centerSlide(activeIndex(), 'auto'));
+  addEventListener('resize', () => { normalize(); centerSlide(activeIndex() % n, 'auto'); });
 
   // Slide-up entrance the first time the slider scrolls into view
   const shell = document.querySelector('.slider-shell');
   const sio = new IntersectionObserver(es => {
     if (es[0].isIntersecting) {
-      slides.forEach((s, i) => s.style.animationDelay = (i * 70) + 'ms');
+      slides.forEach((s, i) => s.style.animationDelay = ((i % n) * 130) + 'ms');
       shell.classList.add('shown');
       sio.disconnect();
     }
