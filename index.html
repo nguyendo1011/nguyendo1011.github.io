@@ -148,6 +148,12 @@
     -webkit-background-clip: text; background-clip: text;
     color: transparent;
   }
+  h1 .caret {
+    display: inline-block; width: 4px; height: .82em;
+    background: var(--accent); margin-left: 6px; vertical-align: -.04em;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
   /* Hero entrance: staggered slide-up (storytelling: name, role, pitch, action) */
   @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
   header .wrap > * { animation: rise .7s cubic-bezier(.16, 1, .3, 1) backwards; }
@@ -156,7 +162,7 @@
   header .wrap > .hero-cta { animation-delay: .36s; }
   header .wrap > .hero-meta { animation-delay: .5s; }
   .lede {
-    font-size: clamp(1rem, 2vw, 1.15rem); color: var(--ink-soft);
+    font-size: 16px; color: var(--ink-soft);
     max-width: 600px; margin-bottom: 36px;
   }
   .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -194,7 +200,7 @@
   }
   .sec-label::before { content: ""; width: 24px; height: 1.5px; background: var(--accent); }
   h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); letter-spacing: -.025em; font-weight: 700; }
-  .sec-sub { font-size: 15px; color: var(--ink-faint); margin-top: 10px; }
+  .sec-sub { font-size: 16px; color: var(--ink-faint); margin-top: 10px; }
 
   /* ---- Project slider: big center, faded sides ---- */
   .slider-section { padding-inline: 0; }
@@ -239,7 +245,7 @@
   }
   .slide-body h3 svg { width: 16px; height: 16px; color: var(--ink-faint); flex-shrink: 0; transition: color .2s, transform .2s; }
   a.slide:hover h3 svg { color: var(--accent); transform: translate(2px, -2px); }
-  .slide-body p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+  .slide-body p { font-size: 16px; color: var(--ink-soft); margin-top: 4px; }
   .slide-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
   .tag {
     font-size: 12px; font-weight: 500; color: var(--ink-faint);
@@ -285,7 +291,7 @@
   }
   .job h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; }
   .role-type { font-size: 13px; color: var(--ink-faint); font-weight: 400; margin-left: 8px; font-family: var(--font-body); }
-  .job ul { margin: 14px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+  .job ul { margin: 14px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 16px; }
   .job li { margin-bottom: 7px; }
   .job li::marker { color: var(--accent); }
   .job ul + h3 { margin-top: 28px; }
@@ -607,6 +613,28 @@
     });
   }
 
+  // Typing loop on the role: type, hold 5s, erase, repeat
+  const roleEl = document.querySelector('h1 .accent');
+  if (roleEl && !reduceMotion) {
+    const text = roleEl.textContent;
+    roleEl.textContent = '';
+    const typed = document.createElement('span');
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    caret.setAttribute('aria-hidden', 'true');
+    roleEl.setAttribute('aria-label', text);
+    roleEl.append(typed, caret);
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    (async () => {
+      while (true) {
+        for (let i = 1; i <= text.length; i++) { typed.textContent = text.slice(0, i); await sleep(80); }
+        await sleep(5000);
+        for (let i = text.length - 1; i >= 0; i--) { typed.textContent = text.slice(0, i); await sleep(35); }
+        await sleep(500);
+      }
+    })();
+  }
+
   // Anchor links: route through the smoother when active, native otherwise
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const href = a.getAttribute('href');
@@ -623,19 +651,25 @@
   const track = document.getElementById('track');
   const originals = [...track.querySelectorAll('.slide')];
   const n = originals.length;
-  originals.forEach(s => {
+  // Clone sets on BOTH sides so cards are visible left and right from the start
+  const makeClone = s => {
     const c = s.cloneNode(true);
     c.setAttribute('aria-hidden', 'true');
     c.querySelectorAll('a, [tabindex]').forEach(el => el.tabIndex = -1);
     if (c.tagName === 'A') c.tabIndex = -1;
-    track.appendChild(c);
-  });
+    return c;
+  };
+  const before = document.createDocumentFragment();
+  const after = document.createDocumentFragment();
+  originals.forEach(s => { before.appendChild(makeClone(s)); after.appendChild(makeClone(s)); });
+  track.insertBefore(before, track.firstElementChild);
+  track.appendChild(after);
   const slides = [...track.querySelectorAll('.slide')];
   const dotsBox = document.getElementById('sDots');
   originals.forEach((_, i) => {
     const b = document.createElement('button');
     b.setAttribute('aria-label', 'Go to project ' + (i + 1));
-    b.addEventListener('click', () => { normalize(); centerSlide(i); });
+    b.addEventListener('click', () => { normalize(); centerSlide(n + i); });
     dotsBox.appendChild(b);
   });
   const dots = [...dotsBox.children];
@@ -654,8 +688,11 @@
     });
     return best;
   }
+  // Keep the settled index inside the middle (original) set: [n, 2n)
   function normalize() {
-    if (activeIndex() >= n) track.scrollLeft -= setWidth();
+    const i = activeIndex();
+    if (i < n) track.scrollLeft += setWidth();
+    else if (i >= 2 * n) track.scrollLeft -= setWidth();
   }
   let raf = 0, settle = 0;
   function update() {
@@ -670,12 +707,10 @@
     settle = setTimeout(normalize, 150);
   }, { passive: true });
 
-  // Looping navigation: stepping past either end crosses into the clone set seamlessly
+  // Looping navigation: stepping past either end crosses into a clone set seamlessly
   function step(dir) {
     normalize();
-    let i = activeIndex();
-    if (dir < 0 && i === 0) { track.scrollLeft += setWidth(); i = n; }
-    centerSlide(i + dir);
+    centerSlide(activeIndex() + dir);
   }
   document.getElementById('sPrev').addEventListener('click', () => step(-1));
   document.getElementById('sNext').addEventListener('click', () => step(1));
@@ -684,16 +719,16 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
   });
 
-  // Start centered on the first slide; keep the active slide centered on resize
-  centerSlide(0, 'auto');
+  // Start centered on the first ORIGINAL slide (clones visible on both sides)
+  centerSlide(n, 'auto');
   update();
-  addEventListener('resize', () => { normalize(); centerSlide(activeIndex() % n, 'auto'); });
+  addEventListener('resize', () => { normalize(); centerSlide(n + activeIndex() % n, 'auto'); });
 
   // Slide-up entrance the first time the slider scrolls into view
   const shell = document.querySelector('.slider-shell');
   const sio = new IntersectionObserver(es => {
     if (es[0].isIntersecting) {
-      slides.forEach((s, i) => s.style.animationDelay = ((i % n) * 130) + 'ms');
+      slides.forEach((s, i) => s.style.animationDelay = (Math.abs(i - n) * 130) + 'ms');
       shell.classList.add('shown');
       sio.disconnect();
     }
