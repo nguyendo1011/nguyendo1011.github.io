@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Source for public/og.png (link preview card, 1200x630). Built by scripts/build-pdf.sh -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: "Geist", sans-serif; color: #ecf0ea; position: relative;
+    background:
+      radial-gradient(70% 90% at 82% 60%, rgba(149, 191, 71, .16), transparent 70%),
+      #0b0d0c;
+    padding: 64px 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center;
+  }
+  /* Dot field echoing the site's hero background */
+  body::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: radial-gradient(rgba(149, 191, 71, .35) 1.2px, transparent 1.6px);
+    background-size: 18px 18px;
+    -webkit-mask-image: radial-gradient(60% 80% at 85% 70%, #000 10%, transparent 75%);
+  }
+  .copy, .editor { position: relative; z-index: 1; }
+  .status {
+    display: inline-flex; align-items: center; gap: 10px; font: 500 19px "Geist Mono", monospace; color: #a3aba1;
+    border: 1px solid #232924; background: #111412; padding: 9px 16px; border-radius: 8px; margin-bottom: 30px;
+  }
+  .status i { width: 10px; height: 10px; border-radius: 50%; background: #95bf47; box-shadow: 0 0 0 4px rgba(149, 191, 71, .15); }
+  h1 { font-size: 64px; line-height: 1.05; letter-spacing: -.045em; font-weight: 700; }
+  .role { font: 600 54px "Geist Mono", monospace; letter-spacing: -.05em; color: #95bf47; margin-top: 6px; }
+  .role b { display: inline-block; width: 28px; height: 50px; background: #95bf47; vertical-align: -6px; margin-left: 6px; opacity: .85; }
+  p { font-size: 25px; line-height: 1.45; color: #a3aba1; margin-top: 26px; max-width: 560px; }
+  p strong { color: #ecf0ea; font-weight: 600; }
+  .url { position: absolute; left: 72px; bottom: 44px; font: 500 20px "Geist Mono", monospace; color: #7d867b; z-index: 1; }
+  .url span { color: #95bf47; }
+  .editor {
+    background: #111412; border: 1px solid #232924; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(2, 6, 3, .8), 0 0 0 1px rgba(149, 191, 71, .12);
+  }
+  .tab { font: 18px "Geist Mono", monospace; color: #ecf0ea; padding: 14px 20px; background: #181c19; border-bottom: 1px solid #232924; box-shadow: inset 0 3px 0 #95bf47; display: inline-block; }
+  .tabs { background: #181c19; border-bottom: 1px solid #232924; }
+  pre { font: 19px/1.8 "Geist Mono", monospace; color: #a3aba1; padding: 20px 24px 24px; white-space: pre; }
+  .t { color: #95bf47; } .s { color: #c8e09a; } .v { color: #ecf0ea; } .c { color: #7d867b; font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="status"><i></i>Available for Shopify projects</div>
+    <h1>Do Thanh Nhat Nguyen</h1>
+    <div class="role">Shopify Developer<b></b></div>
+    <p>Custom <strong>Shopify apps, themes</strong> and <strong>AI features</strong> for agencies and brands. 4+ years.</p>
+  </div>
+  <div class="editor">
+    <div class="tabs"><span class="tab">developer.liquid</span></div>
+<pre><span class="c">{% # written daily since 2021 %}</span>
+<span class="t">{%- for</span> <span class="v">app</span> <span class="t">in</span> <span class="v">dev.apps</span> <span class="t">-%}</span>
+  &lt;li&gt;<span class="t">{{</span> <span class="v">app.title</span> <span class="t">}}</span>&lt;/li&gt;
+<span class="t">{%- endfor -%}</span>
+
+<span class="t">{% schema %}</span>
+{ <span class="s">"name"</span>: <span class="s">"Hire Nguyen"</span> }
+<span class="t">{% endschema %}</span></pre>
+  </div>
+  <div class="url"><span>~/</span>nguyendo-cv.nhatnguyendothanh.workers.dev</div>
+</body>
+</html>

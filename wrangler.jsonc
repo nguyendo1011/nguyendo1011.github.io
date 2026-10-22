@@ -8,8 +8,12 @@
   // Chat transcripts (see migrations/, read with `npm run chats`)
   "d1_databases": [{ "binding": "DB", "database_name": "nguyendo-cv-chats", "database_id": "a2b36fa6-40ff-495a-9805-3aea57faa053" }],
   // 8 chat requests / minute per visitor IP: keeps Workers AI cost bounded
-  "ratelimits": [{ "name": "CHAT_LIMIT", "namespace_id": "1011", "simple": { "limit": 8, "period": 60 } }],
-  // Bundle knowledge/*.md into the Worker as strings (never served as a public file)
-  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+  "ratelimits": [
+    { "name": "CHAT_LIMIT", "namespace_id": "1011", "simple": { "limit": 8, "period": 60 } },
+    // /admin requests per IP: plenty for reading, far too slow to brute-force the password
+    { "name": "ADMIN_LIMIT", "namespace_id": "1012", "simple": { "limit": 60, "period": 60 } }
+  ],
+  // Bundle knowledge/*.md and src/*.html (admin page) into the Worker as strings, never public assets
+  "rules": [{ "type": "Text", "globs": ["**/*.md", "src/**/*.html"], "fallthrough": true }],
   "observability": { "enabled": true }
 }

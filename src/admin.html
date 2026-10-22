@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Chat Logs - nguyendo.dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Same tokens as the public site (dark editor theme) */
+  :root {
+    --bg: #0b0d0c; --surface: #111412; --surface-2: #181c19; --ink: #ecf0ea; --ink-soft: #a3aba1; --ink-faint: #7d867b;
+    --accent: #95bf47; --accent-ink: #0b0d0c; --accent-soft: rgba(149, 191, 71, .1); --accent-line: rgba(149, 191, 71, .35);
+    --line: #232924; --r: 12px; --r-sm: 8px;
+    --font: "Geist", -apple-system, sans-serif; --mono: "Geist Mono", ui-monospace, monospace;
+    color-scheme: dark;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font: 15px/1.55 var(--font); background: var(--bg); color: var(--ink); height: 100dvh; display: flex; flex-direction: column; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+  .brand { font: 500 15px var(--mono); }
+  .brand span { color: var(--accent); }
+  .tools { display: flex; gap: 8px; align-items: center; }
+  input[type=search] {
+    width: min(320px, 50vw); font: 14px var(--font); color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 12px;
+  }
+  input[type=search]::placeholder { color: var(--ink-faint); }
+  input:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button {
+    font: 600 13.5px var(--font); color: var(--ink); cursor: pointer;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 14px;
+  }
+  button:hover { border-color: var(--accent-line); color: var(--accent); }
+  main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(280px, 380px) 1fr; }
+  .list { border-right: 1px solid var(--line); overflow-y: auto; }
+  .stats { font: 12.5px var(--mono); color: var(--ink-faint); padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .session {
+    display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+    background: none; padding: 12px 16px; font-weight: 400;
+  }
+  .session:hover { background: var(--surface); color: var(--ink); }
+  .session.on { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--accent); }
+  .session .q { color: var(--ink); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .session .meta { font: 12px var(--mono); color: var(--ink-faint); margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .err { color: #e5986b; }
+  .view { overflow-y: auto; padding: 24px clamp(16px, 4vw, 48px); }
+  .view-head { font: 12.5px var(--mono); color: var(--ink-faint); margin-bottom: 18px; }
+  .turn { display: grid; gap: 8px; margin-bottom: 18px; max-width: 760px; }
+  .time { font: 11.5px var(--mono); color: var(--ink-faint); }
+  .msg { padding: 10px 14px; border-radius: var(--r-sm); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .user { justify-self: end; background: var(--accent); color: var(--accent-ink); max-width: 85%; }
+  .bot { background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-soft); }
+  .bot.fail { border-color: #e5986b55; color: #e5986b; }
+  .empty { color: var(--ink-faint); padding: 48px 16px; text-align: center; }
+  .skel { height: 58px; margin: 10px 16px; border-radius: var(--r-sm); background: linear-gradient(90deg, var(--surface), var(--surface-2), var(--surface)); background-size: 200% 100%; animation: sh 1.2s linear infinite; }
+  @keyframes sh { to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+  @media (max-width: 760px) {
+    main { grid-template-columns: 1fr; }
+    main.reading .list { display: none; }
+    main:not(.reading) .view { display: none; }
+    .back { display: inline-block !important; margin-bottom: 14px; }
+  }
+  .back { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span>~/</span>chat-logs</div>
+  <form class="tools" id="searchForm">
+    <input type="search" id="q" placeholder="Search questions and answers" aria-label="Search chats">
+    <button type="submit">Search</button>
+    <button type="button" id="refresh">Refresh</button>
+  </form>
+</header>
+<main id="main">
+  <div class="list" id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+  <div class="view" id="view"><p class="empty">Select a session to read the conversation.</p></div>
+</main>
+<script>
+  // Visitor text is untrusted: every value is set with textContent, never innerHTML.
+  const $ = id => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const fmt = t => new Date(t.replace(' ', 'T') + 'Z').toLocaleString();
+  let active = null;
+
+  async function api(path) {
+    const res = await fetch(path, { credentials: 'same-origin' });
+    if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.statusText);
+    return res.json();
+  }
+
+  async function loadSessions() {
+    const list = $('list');
+    list.replaceChildren(el('div', 'skel'), el('div', 'skel'), el('div', 'skel'));
+    try {
+      const q = $('q').value.trim();
+      const { sessions, totals } = await api('/admin/api/sessions' + (q ? '?q=' + encodeURIComponent(q) : ''));
+      list.replaceChildren(el('div', 'stats', `${totals.sessions} sessions, ${totals.messages} questions` + (q ? ` matching "${q}"` : '')));
+      if (!sessions.length) { list.appendChild(el('p', 'empty', q ? 'No chats match that search.' : 'No chats yet. They appear here as soon as a visitor asks a question.')); return; }
+      for (const s of sessions) {
+        const b = el('button', 'session' + (s.session_id === active ? ' on' : ''));
+        b.appendChild(el('div', 'q', s.first_question));
+        const meta = el('div', 'meta');
+        meta.append(el('span', null, fmt(s.last_at)), el('span', null, `${s.turns} ${s.turns === 1 ? 'question' : 'questions'}`), el('span', null, s.country || '??'));
+        if (s.errors) meta.appendChild(el('span', 'err', `${s.errors} error${s.errors > 1 ? 's' : ''}`));
+        b.appendChild(meta);
+        b.addEventListener('click', () => openSession(s.session_id, b));
+        list.appendChild(b);
+      }
+    } catch (e) {
+      list.replaceChildren(el('p', 'empty', 'Could not load chats: ' + e.message));
+    }
+  }
+
+  async function openSession(id, btn) {
+    active = id;
+    document.querySelectorAll('.session.on').forEach(b => b.classList.remove('on'));
+    btn?.classList.add('on');
+    $('main').classList.add('reading');
+    const view = $('view');
+    view.replaceChildren(el('div', 'skel'), el('div', 'skel'));
+    try {
+      const { messages } = await api('/admin/api/session?id=' + encodeURIComponent(id));
+      const back = el('button', 'back', 'Back to sessions');
+      back.addEventListener('click', () => $('main').classList.remove('reading'));
+      view.replaceChildren(back, el('p', 'view-head', `Session ${id.slice(0, 8)}  |  ${messages[0]?.country || '??'}  |  started ${messages[0] ? fmt(messages[0].created_at) : ''}`));
+      for (const m of messages) {
+        const t = el('div', 'turn');
+        t.append(el('div', 'time', fmt(m.created_at)), el('div', 'msg user', m.question));
+        t.appendChild(m.error ? el('div', 'msg bot fail', 'Error: ' + m.error) : el('div', 'msg bot', m.answer));
+        view.appendChild(t);
+      }
+    } catch (e) {
+      view.replaceChildren(el('p', 'empty', 'Could not load this session: ' + e.message));
+    }
+  }
+
+  $('searchForm').addEventListener('submit', e => { e.preventDefault(); loadSessions(); });
+  $('refresh').addEventListener('click', loadSessions);
+  loadSessions();
+</script>
+</body>
+</html>

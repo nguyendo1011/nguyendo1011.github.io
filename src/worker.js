@@ -1,4 +1,5 @@
 import profile from '../knowledge/profile.md';
+import adminPage from './admin.html';
 
 const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 
@@ -66,9 +67,78 @@ async function chat(request, env, ctx) {
   }
 }
 
+// ---- Admin: chat log viewer at /admin (HTTP Basic auth, password = ADMIN_PASSWORD secret) ----
+const ADMIN_HEADERS = {
+  'cache-control': 'no-store',
+  'x-robots-tag': 'noindex, nofollow',
+  'x-frame-options': 'DENY',
+  'referrer-policy': 'no-referrer',
+};
+const adminJson = (data, status = 200) =>
+  new Response(JSON.stringify(data), { status, headers: { ...ADMIN_HEADERS, 'content-type': 'application/json' } });
+
+async function authorized(request, env) {
+  const h = request.headers.get('authorization') || '';
+  if (!env.ADMIN_PASSWORD || !h.startsWith('Basic ')) return false;
+  let pass;
+  try { pass = atob(h.slice(6)).split(':').slice(1).join(':'); } catch { return false; }
+  // Hash both sides so lengths match, then compare in constant time
+  const enc = new TextEncoder();
+  const [a, b] = await Promise.all([pass, env.ADMIN_PASSWORD].map(v => crypto.subtle.digest('SHA-256', enc.encode(v))));
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
+async function admin(request, env, pathname, url) {
+  const ip = request.headers.get('cf-connecting-ip') || 'anon';
+  const { success } = await env.ADMIN_LIMIT.limit({ key: ip });
+  if (!success) return new Response('Too many requests. Try again in a minute.', { status: 429, headers: ADMIN_HEADERS });
+  if (!(await authorized(request, env))) {
+    return new Response('Authentication required.', {
+      status: 401,
+      headers: { ...ADMIN_HEADERS, 'www-authenticate': 'Basic realm="nguyendo-cv admin", charset="UTF-8"' },
+    });
+  }
+
+  if (pathname === '/admin' || pathname === '/admin/') {
+    return new Response(adminPage, {
+      headers: {
+        ...ADMIN_HEADERS,
+        'content-type': 'text/html; charset=utf-8',
+        'content-security-policy': "default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; frame-ancestors 'none'",
+      },
+    });
+  }
+
+  if (pathname === '/admin/api/sessions') {
+    const q = (url.searchParams.get('q') || '').trim().slice(0, 100);
+    const like = q ? `%${q}%` : null;
+    const filter = 'WHERE ?1 IS NULL OR session_id IN (SELECT session_id FROM messages WHERE question LIKE ?1 OR answer LIKE ?1)';
+    const [sessions, totals] = await env.DB.batch([
+      env.DB.prepare(`SELECT session_id, MIN(created_at) AS started_at, MAX(created_at) AS last_at, COUNT(*) AS turns,
+          MAX(country) AS country, SUM(error IS NOT NULL) AS errors,
+          (SELECT question FROM messages f WHERE f.session_id = m.session_id ORDER BY id LIMIT 1) AS first_question
+        FROM messages m ${filter} GROUP BY session_id ORDER BY MAX(id) DESC LIMIT 200`).bind(like),
+      env.DB.prepare(`SELECT COUNT(DISTINCT session_id) AS sessions, COUNT(*) AS messages FROM messages ${filter}`).bind(like),
+    ]);
+    return adminJson({ sessions: sessions.results, totals: totals.results[0] });
+  }
+
+  if (pathname === '/admin/api/session') {
+    const id = url.searchParams.get('id') || '';
+    const { results } = await env.DB.prepare(
+      'SELECT created_at, question, answer, error, country FROM messages WHERE session_id = ? ORDER BY id LIMIT 500'
+    ).bind(id).all();
+    return adminJson({ messages: results });
+  }
+
+  return adminJson({ error: 'Not found.' }, 404);
+}
+
 export default {
   async fetch(request, env, ctx) {
-    const { pathname } = new URL(request.url);
+    const url = new URL(request.url);
+    const { pathname } = url;
+    if (pathname === '/admin' || pathname.startsWith('/admin/')) return admin(request, env, pathname, url);
     if (pathname === '/api/chat') {
       if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
       return chat(request, env, ctx);
