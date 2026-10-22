@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "pdf": "sh scripts/build-pdf.sh",
-    "deploy": "npm run pdf && wrangler deploy"
+    "deploy": "npm run pdf && wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply nguyendo-cv-chats --remote",
+    "chats": "wrangler d1 execute nguyendo-cv-chats --remote --command \"SELECT created_at, substr(session_id,1,8) AS session, country, question, substr(answer,1,160) AS answer, error FROM messages ORDER BY id DESC LIMIT 50\""
   },
   "devDependencies": {
     "wrangler": "^4.151.3"

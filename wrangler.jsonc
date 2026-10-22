@@ -5,6 +5,8 @@
   "compatibility_date": "2026-10-22",
   "assets": { "directory": "./public", "binding": "ASSETS" },
   "ai": { "binding": "AI" },
+  // Chat transcripts (see migrations/, read with `npm run chats`)
+  "d1_databases": [{ "binding": "DB", "database_name": "nguyendo-cv-chats", "database_id": "a2b36fa6-40ff-495a-9805-3aea57faa053" }],
   // 8 chat requests / minute per visitor IP: keeps Workers AI cost bounded
   "ratelimits": [{ "name": "CHAT_LIMIT", "namespace_id": "1011", "simple": { "limit": 8, "period": 60 } }],
   // Bundle knowledge/*.md into the Worker as strings (never served as a public file)

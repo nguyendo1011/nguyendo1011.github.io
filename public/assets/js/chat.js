@@ -8,6 +8,10 @@
   const send = form.querySelector('button');
   const suggest = document.getElementById('chatSuggest');
   const history = [];
+  // One id per browser tab session, so a visitor's questions group together in the log
+  let sessionId;
+  try { sessionId = sessionStorage.getItem('chatSession') || crypto.randomUUID(); sessionStorage.setItem('chatSession', sessionId); }
+  catch { sessionId = crypto.randomUUID(); }
 
   const open = state => {
     panel.hidden = !state;
@@ -62,7 +66,7 @@
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ sessionId, messages: history }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.reply) throw new Error(data.error || 'Something went wrong. Please try again.');
