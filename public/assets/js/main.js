@@ -16,14 +16,15 @@ document.querySelectorAll('.spot').forEach(c => c.addEventListener('pointermove'
   c.style.setProperty('--my', (e.clientY - r.top) + 'px');
 }));
 
-// Copy email with inline confirmation
-const copyBtn = document.getElementById('copyMail');
-copyBtn.addEventListener('click', async () => {
+// Copy buttons ([data-copy]): contact section and email links inside chat answers
+document.addEventListener('click', async e => {
+  const btn = e.target.closest('[data-copy]');
+  if (!btn) return;
   try {
-    await navigator.clipboard.writeText('nhatnguyendothanh@gmail.com');
-    copyBtn.textContent = 'Copied'; copyBtn.dataset.done = '';
-  } catch { copyBtn.textContent = 'Copy failed'; }
-  setTimeout(() => { copyBtn.textContent = 'Copy email'; delete copyBtn.dataset.done; }, 2000);
+    await navigator.clipboard.writeText(btn.dataset.copy);
+    btn.classList.add('done'); btn.title = 'Copied';
+  } catch { btn.title = 'Copy failed'; }
+  setTimeout(() => { btn.classList.remove('done'); btn.title = 'Copy email'; }, 1600);
 });
 
 // ---- GSAP: inertia scroll (Locomotive-style) + scroll-linked reveals ----

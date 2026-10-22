@@ -32,10 +32,28 @@
   };
 
   // Tiny safe renderer: "**bold**" + "- " bullet lines -> DOM nodes. Never uses innerHTML.
+  // Constant, trusted icon markup (never built from model or visitor text)
+  const COPY_ICON = '<svg class="i-copy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg><svg class="i-check" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+  const EMAIL = /([\w.+-]+@[\w-]+\.[\w.-]*\w)/g;
+  // Text -> text nodes, with each email turned into a Gmail compose link + copy button
+  const withEmails = (el, text) => text.split(EMAIL).forEach((part, i) => {
+    if (!part) return;
+    if (i % 2 === 0) { el.appendChild(document.createTextNode(part)); return; }
+    const a = document.createElement('a');
+    a.className = 'mail-link';
+    a.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(part);
+    a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = part;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy-ico'; b.dataset.copy = part;
+    b.title = 'Copy email'; b.setAttribute('aria-label', 'Copy ' + part);
+    b.innerHTML = COPY_ICON;
+    el.append(a, b);
+  });
   const inline = (el, text) => text.split(/\*\*(.+?)\*\*/g).forEach((part, i) => {
     if (!part) return;
-    if (i % 2) { const b = document.createElement('strong'); b.textContent = part; el.appendChild(b); }
-    else el.appendChild(document.createTextNode(part));
+    if (i % 2) { const b = document.createElement('strong'); withEmails(b, part); el.appendChild(b); }
+    else withEmails(el, part);
   });
   const render = (el, text) => {
     el.textContent = '';
@@ -61,7 +79,9 @@
     history.push({ role: 'user', content: q });
     input.value = '';
     send.disabled = true;
-    const wait = add('bot wait', 'Thinking');
+    const wait = add('bot wait', '');
+    wait.setAttribute('aria-label', 'Thinking');
+    wait.append(document.createElement('i'), document.createElement('i'), document.createElement('i'));
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
