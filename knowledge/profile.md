@@ -13,13 +13,25 @@ Public profile used by the CV chatbot. Everything here is safe to share. Anythin
 ## Timeline
 | Period | Company | Type | Focus |
 |---|---|---|---|
-| 2024 - now | Sartoro (custom menswear and tailoring, sartoro.co) | Full-time | Custom Shopify apps, storefront features, AI features, internal tools |
+| 2024 - now | Sartoro (custom menswear and tailoring, sartoro.co) | Full-time | Storefront theme (main developer), custom Shopify apps, AI features, internal tools |
 | 2023 - 2024 | QDN Digital | Full-time | Client Shopify builds, team lead for 1-2 junior developers |
 | 2023 - 2024 | Scentiment Ecommerce | Part-time | Custom sections, maintenance, hotfixes |
 | 2021 - 2023 | Burgess Commerce & Meaningful Mantras | Full-time | Sections, custom features, full store builds |
 
 ## Sartoro (2024 - now)
 Sartoro is a made-to-measure menswear brand on Shopify. Nguyen builds most of its custom software, usually solo, from the storefront to the admin tools staff use every day.
+
+### Sartoro storefront theme (main developer)
+- Main developer of the custom Shopify theme that runs the live sartoro.co store, since September 2025 (1,200+ commits).
+- Product pages tied to the made-to-measure configurator: option and add-on selection, monogram and detail previews, faster configurator loading.
+- Fit profile flow: a body-measurement page with unit conversion and fit-precision sliders, saved to the customer account.
+- Rebuilt the shopping experience as fast, lazy-loaded components: cart drawer, quick view and quick add, add-ons drawer, "Complete the Look" and "You May Also Like" recommendations, predictive search.
+- A flexible section and page builder for the marketing team: product sliders, comparison sections, wedding and groom stories with gallery popups and hotspots.
+- Commerce features: a second-suit bundle offer with its own landing page, fabric swatch book ordering, gift with purchase, cart discounts.
+- Performance and site health: trimmed sitewide JavaScript, Core Web Vitals collection, server-rendered collection grids, settings-driven redirects.
+- Developer tooling: build pipeline, linting and formatting, per-branch preview themes, GitHub Actions.
+- Earlier (2025) contributed to a from-scratch theme rebuild: the size-and-fit questionnaire, saved measurements drawer, configurator option data, cart page and drawer.
+- Stack: Shopify Online Store 2.0, Liquid, JavaScript Web Components, Svelte, Vue, Tailwind CSS, SCSS, esbuild/Vite, Shopify CLI, GSAP, GitHub Actions.
 
 ### Product options and bundles app
 - Custom Shopify app that replaced a third-party product-options app.
@@ -77,9 +89,16 @@ Sartoro is a made-to-measure menswear brand on Shopify. Nguyen builds most of it
 - AI wedding proposals: stylists generate private, branded proposal pages for couples, using real store products. Staff can edit the AI templates without a deploy.
 - Model photo organizer: face recognition sorts photoshoot images by model, then uploads them to Shopify and links products to the models wearing them. Has a dry-run mode.
 - Company context service for AI coding assistants: indexes the company's code and docs with source citations and access control.
+- AI measurement-analysis service: set up the service as its own deployable project, with its stored knowledge encrypted while still searchable (founding commit only; later features are a teammate's work).
 - Stack across these: TypeScript, Astro, Python, FastAPI, Cloudflare Workers, Shopify Admin API, Docker.
 
+### Image pipeline automation
+- Batch tool that sends product photos to a third-party AI virtual-model service to generate on-model fashion images, with model and background assignment per folder.
+- Bulk downloader that pulls configurator option thumbnails and sorts them into folders by option type.
+- Stack: JavaScript, Node.js, image processing.
+
 ### Prototypes and R&D
+- 2D suit configurator (2025): a Shopify theme prototype where shoppers pick jacket and trouser options and see a layered image preview; includes an image-naming standard for the art team.
 - Browser body scan: a 360-degree turn in front of the camera produces body measurements, with no photos leaving the phone.
 - Warehouse inventory: QR labels, phone-camera stock scanning, and a floor map built from phone photos with on-device AI.
 - Described as prototypes, not shipped products.

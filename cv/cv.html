@@ -48,6 +48,7 @@
   .stores { color: var(--soft); }
   .stores b { color: var(--ink); font-weight: 600; }
   .page2 { break-before: page; }
+  footer span:last-child { white-space: nowrap; }
   footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font: 8pt "Geist Mono", monospace; color: var(--faint); display: flex; justify-content: space-between; }
 </style>
 </head>
@@ -89,6 +90,7 @@
     <h3>Sartoro <span>full-time</span></h3>
     <p class="lead">Made-to-measure menswear brand on Shopify (sartoro.co). I build most of its custom software, usually solo, from storefront features to the admin tools staff use daily.</p>
     <ul>
+      <li>Main developer of the live Sartoro Shopify theme (1,200+ commits): configurator product pages, fit profiles, cart drawer, recommendations, predictive search</li>
       <li>Built custom Shopify apps that replaced third-party apps: product options and bundles, wishlists, reviews and Q&amp;A</li>
       <li>Shipped AI features on the live store: virtual try-on, natural-language product search and an AI stylist chat with guardrails</li>
       <li>Contributed to, then led the rebuild of, the order and tailoring operations platform (fit profiles, order re-confirmation, measurement analysis)</li>
@@ -137,6 +139,11 @@
 <section class="page2">
 <h2>Selected projects at Sartoro</h2>
 <div class="projects">
+  <div class="proj wide">
+    <h4>Sartoro storefront theme, main developer</h4>
+    <p>The custom Online Store 2.0 theme behind sartoro.co. Configurator product pages, fit-profile flow, lazy-loaded cart drawer, quick add and recommendations, predictive search, a section builder for marketing, bundle and swatch-book offers, and Core Web Vitals work.</p>
+    <div class="stack">Liquid, Web Components, Svelte, Vue, Tailwind, esbuild/Vite, Shopify CLI, GitHub Actions</div>
+  </div>
   <div class="proj">
     <h4>Product options &amp; bundles app</h4>
     <p>Option sets and presets with add-on prices, a no-code "When, Then, Do" rule editor for merchandisers, and native Shopify bundles. Replaced a third-party app.</p>
@@ -169,7 +176,7 @@
   </div>
   <div class="proj wide">
     <h4>Internal tools &amp; prototypes</h4>
-    <p>Made-to-measure garment configurator with a live preview and price (prototype). AI-generated wedding proposal pages for stylists. Face-recognition photo organizer that links products to models in Shopify. Browser body-scan and warehouse-mapping prototypes.</p>
+    <p>Made-to-measure and 2D suit configurator prototypes with live previews. AI on-model image automation for product photos. AI-generated wedding proposal pages for stylists. Face-recognition photo organizer that links products to models in Shopify. Browser body-scan and warehouse-mapping prototypes.</p>
     <div class="stack">SvelteKit, Astro, Python, FastAPI, Shopify Admin API, Docker</div>
   </div>
 </div>
@@ -183,7 +190,7 @@
   <li>GetFastImage: Chrome extension that converts page images to WebP</li>
 </ul>
 
-<footer><span>Open to full-time roles, agency partnerships and freelance Shopify projects</span><span>nguyendo-cv.nhatnguyendothanh.workers.dev</span></footer>
+<footer><span>Open to full-time, agency and freelance Shopify work</span><span>nguyendo-cv.nhatnguyendothanh.workers.dev</span></footer>
 </section>
 
 </body>
