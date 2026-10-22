@@ -1,0 +1,13 @@
+{
+  "name": "nguyendo-cv",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "pdf": "sh scripts/build-pdf.sh",
+    "deploy": "npm run pdf && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.3"
+  }
+}

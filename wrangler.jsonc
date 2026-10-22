@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nguyendo-cv",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-22",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "ai": { "binding": "AI" },
+  // 8 chat requests / minute per visitor IP: keeps Workers AI cost bounded
+  "ratelimits": [{ "name": "CHAT_LIMIT", "namespace_id": "1011", "simple": { "limit": 8, "period": 60 } }],
+  // Bundle knowledge/*.md into the Worker as strings (never served as a public file)
+  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+  "observability": { "enabled": true }
+}

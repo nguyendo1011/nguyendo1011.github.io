@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Do Thanh Nhat Nguyen - Shopify Developer CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Print source for public/cv.pdf (built by scripts/build-pdf.sh). Same tokens as the site, light theme. */
+  @page { size: A4; margin: 14mm 15mm 13mm; }
+  :root { --ink: #121612; --soft: #4a5248; --faint: #646d62; --accent: #3e6b1a; --line: #dce1d9; --tint: #f1f5ec; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font: 9.6pt/1.5 "Geist", sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .mono { font-family: "Geist Mono", monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  header { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+  h1 { font-size: 23pt; letter-spacing: -.035em; line-height: 1.05; font-weight: 700; }
+  .role { font: 600 12.5pt "Geist Mono", monospace; color: var(--accent); letter-spacing: -.03em; margin-top: 3px; }
+  .contact { text-align: right; font: 8.6pt/1.65 "Geist Mono", monospace; color: var(--soft); }
+  .contact b { color: var(--ink); font-weight: 500; }
+
+  .summary { margin: 12px 0 4px; color: var(--soft); font-size: 10pt; }
+  .summary strong { color: var(--ink); font-weight: 600; }
+
+  h2 { font: 600 8.4pt "Geist Mono", monospace; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin: 16px 0 8px; display: flex; gap: 10px; align-items: center; }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .skills { display: grid; grid-template-columns: 74px 1fr; gap: 3px 12px; font-size: 9pt; }
+  .skills dt { font: 500 8.4pt "Geist Mono", monospace; color: var(--faint); padding-top: 1px; }
+  .skills dd { color: var(--ink); }
+
+  .job { display: grid; grid-template-columns: 74px 1fr; gap: 12px; margin-bottom: 10px; break-inside: avoid; }
+  .when { font: 500 8.4pt "Geist Mono", monospace; color: var(--faint); padding-top: 2px; }
+  .job h3 { font-size: 11pt; letter-spacing: -.02em; font-weight: 600; }
+  .job h3 span { font: 400 8.4pt "Geist Mono", monospace; color: var(--faint); margin-left: 6px; }
+  .lead { color: var(--soft); margin: 2px 0 6px; }
+  ul { list-style: none; }
+  li { position: relative; padding-left: 13px; margin-bottom: 2px; color: var(--soft); }
+  li::before { content: "+"; position: absolute; left: 0; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .proj { background: var(--tint); border-radius: 6px; padding: 9px 11px; break-inside: avoid; }
+  .proj h4 { font-size: 9.8pt; font-weight: 600; letter-spacing: -.01em; }
+  .proj p { color: var(--soft); font-size: 8.8pt; line-height: 1.45; margin-top: 2px; }
+  .proj .stack { font: 7.8pt/1.4 "Geist Mono", monospace; color: var(--faint); margin-top: 5px; }
+  .proj.wide { grid-column: span 2; }
+
+  .stores { color: var(--soft); }
+  .stores b { color: var(--ink); font-weight: 600; }
+  .page2 { break-before: page; }
+  footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--line); font: 8pt "Geist Mono", monospace; color: var(--faint); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Do Thanh Nhat Nguyen</h1>
+    <div class="role">Shopify Developer</div>
+  </div>
+  <div class="contact">
+    <b>nhatnguyendothanh@gmail.com</b><br>
+    (+84) 935 443 369<br>
+    github.com/nguyendo1011<br>
+    Da Nang, Viet Nam, working worldwide
+  </div>
+</header>
+
+<p class="summary">
+  Shopify Developer with <strong>4+ years</strong> building custom <strong>themes, sections and Shopify apps</strong>
+  for agencies and brands. I own features end to end, from requirements to deploy and support, replace paid
+  third-party apps with fast in-house ones, and ship practical AI features on a live store.
+  <strong>15+ stores launched.</strong>
+</p>
+
+<h2>Skills</h2>
+<dl class="skills">
+  <dt>Shopify</dt><dd>Liquid, Online Store 2.0 sections, theme app extensions, custom apps, Admin GraphQL/REST API, App Proxy, webhooks, metafields, metaobjects, bundles, Web Pixels, Polaris</dd>
+  <dt>Frontend</dt><dd>JavaScript, TypeScript, HTML, CSS/SCSS, Tailwind, Vue, React, Svelte/SvelteKit, Remix, Astro</dd>
+  <dt>Backend</dt><dd>Node.js, Express, NestJS, Python (FastAPI), PostgreSQL, SQLite, Redis</dd>
+  <dt>Cloud</dt><dd>Cloudflare Workers, D1, R2, KV, Workers AI, Docker, GitHub Actions, Git, Figma</dd>
+</dl>
+
+<h2>Experience</h2>
+
+<div class="job">
+  <div class="when">2024 - now</div>
+  <div>
+    <h3>Sartoro <span>full-time</span></h3>
+    <p class="lead">Made-to-measure menswear brand on Shopify (sartoro.co). I build most of its custom software, usually solo, from storefront features to the admin tools staff use daily.</p>
+    <ul>
+      <li>Built custom Shopify apps that replaced third-party apps: product options and bundles, wishlists, reviews and Q&amp;A</li>
+      <li>Shipped AI features on the live store: virtual try-on, natural-language product search and an AI stylist chat with guardrails</li>
+      <li>Contributed to, then led the rebuild of, the order and tailoring operations platform (fit profiles, order re-confirmation, measurement analysis)</li>
+      <li>Built first-party analytics with fit-tool funnels and Core Web Vitals alerts after theme deploys</li>
+      <li>Maintain the company Vue.js web app and Node.js + React apps; integrate third-party APIs; coordinate outsource partners</li>
+    </ul>
+  </div>
+</div>
+
+<div class="job">
+  <div class="when">2023 - 2024</div>
+  <div>
+    <h3>QDN Digital <span>full-time</span></h3>
+    <ul>
+      <li>Built custom features for client campaigns and events using JavaScript and Shopify Apps</li>
+      <li>Led a small team of 1-2 junior developers, handling code review and Git merges</li>
+      <li>Delivered projects end to end: filters, search, upsell features and full store builds</li>
+      <li>Daily syncs with PM; maintenance and hotfixes with fast turnaround</li>
+    </ul>
+  </div>
+</div>
+
+<div class="job">
+  <div class="when">2023 - 2024</div>
+  <div>
+    <h3>Scentiment Ecommerce <span>part-time</span></h3>
+    <ul>
+      <li>Custom sections and features per client requirements</li>
+      <li>Maintenance, support and hotfixes for client stores with quick response times</li>
+    </ul>
+  </div>
+</div>
+
+<div class="job">
+  <div class="when">2021 - 2023</div>
+  <div>
+    <h3>Burgess Commerce &amp; Meaningful Mantras <span>full-time</span></h3>
+    <ul>
+      <li>Built and modified sections and custom features per client specs</li>
+      <li>Worked on projects from start to launch, covering filters, search, upsell and more</li>
+      <li>Maintenance, support and hotfixes; supported teammates and kept timelines on track</li>
+    </ul>
+  </div>
+</div>
+
+<section class="page2">
+<h2>Selected projects at Sartoro</h2>
+<div class="projects">
+  <div class="proj">
+    <h4>Product options &amp; bundles app</h4>
+    <p>Option sets and presets with add-on prices, a no-code "When, Then, Do" rule editor for merchandisers, and native Shopify bundles. Replaced a third-party app.</p>
+    <div class="stack">Node.js, React, Polaris, Admin GraphQL, theme app extension</div>
+  </div>
+  <div class="proj">
+    <h4>AI virtual try-on</h4>
+    <p>Shoppers upload a photo and see themselves wearing the garment. Photo checks, consent, rate limiting, A/B tested AI versions, and try-ons linked to orders.</p>
+    <div class="stack">TypeScript, Remix, React, Polaris, Gemini image models</div>
+  </div>
+  <div class="proj">
+    <h4>AI product search &amp; stylist</h4>
+    <p>Natural-language search with smart filters and merchant boosting, plus an AI stylist chat that recommends real products with guardrails against made-up prices.</p>
+    <div class="stack">SvelteKit, Cloudflare Workers, Workers AI, D1, Typesense</div>
+  </div>
+  <div class="proj">
+    <h4>Wishlist, reviews &amp; Q&amp;A</h4>
+    <p>Named wishlists with guest merge, photo reviews with verified-buyer badges and post-purchase emails, AI review summaries, and rich-snippet ratings. Replaced a third-party app.</p>
+    <div class="stack">SvelteKit, App Proxy, Web Components, Workers, D1, R2</div>
+  </div>
+  <div class="proj">
+    <h4>Order &amp; tailoring operations</h4>
+    <p>Customer fit profiles, an order re-confirmation flow before production, measurement analysis and factory sheets. Then a ground-up rebuild of the platform.</p>
+    <div class="stack">Node.js, NestJS, React, Polaris, PostgreSQL, Redis, Docker</div>
+  </div>
+  <div class="proj">
+    <h4>First-party analytics</h4>
+    <p>Consent-aware tracking, fit-tool funnels, Core Web Vitals monitoring with alerts after theme deploys, and bot filtering, in a dashboard styled like the Shopify admin.</p>
+    <div class="stack">React, Cloudflare Workers, D1, Tinybird, Web Pixels</div>
+  </div>
+  <div class="proj wide">
+    <h4>Internal tools &amp; prototypes</h4>
+    <p>Made-to-measure garment configurator with a live preview and price (prototype). AI-generated wedding proposal pages for stylists. Face-recognition photo organizer that links products to models in Shopify. Browser body-scan and warehouse-mapping prototypes.</p>
+    <div class="stack">SvelteKit, Astro, Python, FastAPI, Shopify Admin API, Docker</div>
+  </div>
+</div>
+
+<h2>Live stores</h2>
+<p class="stores"><b>Scentiment</b> home fragrance, <b>Sartoro</b> custom menswear, <b>Lasermaster</b> B2B laser equipment, <b>Meaningful Mantras</b> candles, <b>Hit Box Arcade</b> gaming hardware, <b>Housenine</b> home and living, <b>Stelly</b> women's fashion.</p>
+
+<h2>Side tools</h2>
+<ul>
+  <li>Shopify Dev Quick Tools: Chrome extension for theme detection, preview links and admin shortcuts</li>
+  <li>GetFastImage: Chrome extension that converts page images to WebP</li>
+</ul>
+
+<footer><span>Open to full-time roles, agency partnerships and freelance Shopify projects</span><span>nguyendo-cv.nhatnguyendothanh.workers.dev</span></footer>
+</section>
+
+</body>
+</html>

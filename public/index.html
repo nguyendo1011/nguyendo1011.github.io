@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do Thanh Nhat Nguyen - Shopify Developer</title>
+<meta name="description" content="Shopify Developer with 4 years of experience building high-converting eCommerce stores. Liquid, JavaScript, Vue, React. Based in Da Nang, Viet Nam.">
+<meta property="og:title" content="Do Thanh Nhat Nguyen - Shopify Developer">
+<meta property="og:description" content="4 years building high-converting Shopify stores for agencies and brands worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  // ponytail: set theme before paint to avoid flash
+  document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark';
+</script>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#"><span>~/</span>nguyendo.dev</a>
+    <div class="nav-links">
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#skills">skills</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light or dark mode">
+        <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+        <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+      </button>
+      <a class="nav-cta" href="#contact">Hire me</a>
+    </div>
+  </div>
+</nav>
+
+<button class="chat-fab" id="chatFab" aria-expanded="false" aria-controls="chatPanel">
+  <span class="mono" aria-hidden="true">&gt;_</span> Ask about me
+</button>
+<div class="chat" id="chatPanel" role="dialog" aria-label="Ask about Nguyen's experience" hidden>
+  <div class="chat-head">
+    <span class="mono"><span class="t">~/</span>ask-nguyen</span>
+    <button class="chat-x" id="chatClose" aria-label="Close chat">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chat-log" id="chatLog" aria-live="polite">
+    <p class="msg bot">Hi! I can answer questions about Nguyen's Shopify experience, projects and skills.</p>
+    <div class="chat-suggest" id="chatSuggest">
+      <button type="button">What did he build at Sartoro?</button>
+      <button type="button">Has he built custom Shopify apps?</button>
+      <button type="button">What AI features has he shipped?</button>
+      <button type="button">Is he available for freelance?</button>
+    </div>
+  </div>
+  <form class="chat-form" id="chatForm">
+    <label class="sr-only" for="chatInput">Your question</label>
+    <input id="chatInput" maxlength="600" autocomplete="off" placeholder="Ask about his experience...">
+    <button class="btn btn-primary" type="submit" aria-label="Send">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+    </button>
+  </form>
+</div>
+
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+<header>
+<div class="wrap hero">
+  <div class="hero-copy">
+    <div class="status"><span class="dot"></span>Available for Shopify projects</div>
+    <h1>Do Thanh Nhat Nguyen<br><span class="accent">Shopify Developer</span></h1>
+    <p class="lede">
+      4 years building custom <strong>Shopify themes, sections and apps</strong>
+      in Liquid, JavaScript and Vue for agencies and brands worldwide.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        Hire me
+      </a>
+      <a class="btn btn-ghost" href="#projects">View work</a>
+    </div>
+  </div>
+
+  <div class="editor" aria-label="Example Shopify Liquid section">
+    <div class="tabs">
+      <div class="tab on"><span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg)"></span>developer.liquid</div>
+      <div class="tab">settings_schema.json</div>
+    </div>
+<div class="code"><span class="ln"><span class="c">{% # Shopify Liquid, written daily since 2021 %}</span></span><span class="ln"><span class="t">{%- assign</span> <span class="v">dev</span> = <span class="v">shop.metaobjects.developer.nguyen</span> <span class="t">-%}</span></span><span class="ln"> </span><span class="ln">&lt;section class=<span class="s">"developer"</span>&gt;</span><span class="ln">  &lt;h1&gt;<span class="t">{{</span> <span class="v">dev.name</span> <span class="t">}}</span>&lt;/h1&gt;</span><span class="ln">  &lt;p&gt;<span class="t">{{</span> <span class="v">dev.role</span> | <span class="t">upcase</span> <span class="t">}}</span>&lt;/p&gt;</span><span class="ln"> </span><span class="ln">  <span class="t">{%- for</span> <span class="v">store</span> <span class="t">in</span> <span class="v">dev.stores</span> <span class="t">limit:</span> 3 <span class="t">-%}</span></span><span class="ln">    &lt;a href=<span class="s">"<span class="t">{{</span> <span class="v">store.url</span> <span class="t">}}</span>"</span>&gt;<span class="t">{{</span> <span class="v">store.title</span> <span class="t">}}</span>&lt;/a&gt;</span><span class="ln">  <span class="t">{%- endfor -%}</span></span><span class="ln">&lt;/section&gt;</span><span class="ln"> </span><span class="ln"><span class="t">{% schema %}</span></span><span class="ln">{</span><span class="ln">  <span class="s">"name"</span>: <span class="s">"Developer"</span>,</span><span class="ln">  <span class="s">"presets"</span>: [{ <span class="s">"name"</span>: <span class="s">"Hire Nguyen"</span> }]</span><span class="ln">}</span><span class="ln"><span class="t">{% endschema %}</span><span class="cur" aria-hidden="true"></span></span></div>
+  </div>
+</div>
+</header>
+
+<section id="projects">
+  <div class="wrap sec-head">
+    <h2>Stores I've built and shipped</h2>
+    <p class="comment">live storefronts, click a card to visit</p>
+  </div>
+  <div class="slider-shell">
+    <button class="s-arrow prev" id="sPrev" aria-label="Previous project">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+    </button>
+    <div class="track" id="track" tabindex="0" aria-label="Project carousel">
+
+      <a class="slide" href="https://www.scentiment.com" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>scentiment.com</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.scentiment.com?w=800" alt="Scentiment storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Scentiment</h3><p>Home fragrance &amp; scenting eCommerce</p></div>
+          <div class="slide-tags"><span class="tag">Custom sections</span><span class="tag">Subscriptions</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://sartoro.co" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>sartoro.co</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fsartoro.co?w=800" alt="Sartoro storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Sartoro</h3><p>Custom menswear &amp; tailoring</p></div>
+          <div class="slide-tags"><span class="tag">Theme dev</span><span class="tag">Vue app</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://www.lasermaster.co.uk/" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>lasermaster.co.uk</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.lasermaster.co.uk?w=800" alt="Lasermaster storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Lasermaster</h3><p>Laser engraving machines &amp; equipment</p></div>
+          <div class="slide-tags"><span class="tag">B2B</span><span class="tag">Custom features</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://www.meaningfulmantras.com" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>meaningfulmantras.com</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.meaningfulmantras.com?w=800" alt="Meaningful Mantras storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Meaningful Mantras</h3><p>Lifestyle &amp; candle brand</p></div>
+          <div class="slide-tags"><span class="tag">Full build</span><span class="tag">Upsells</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://hitboxarcade.com" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>hitboxarcade.com</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fhitboxarcade.com?w=800" alt="Hit Box Arcade storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Hit Box Arcade</h3><p>Gaming controller hardware</p></div>
+          <div class="slide-tags"><span class="tag">Custom features</span><span class="tag">JS</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://housenine.com" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>housenine.com</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fhousenine.com?w=800" alt="Housenine storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Housenine</h3><p>Home &amp; living store</p></div>
+          <div class="slide-tags"><span class="tag">Theme dev</span><span class="tag">Sections</span></div>
+        </div>
+      </a>
+
+      <a class="slide" href="https://www.stelly.com.au" target="_blank" rel="noopener">
+        <div class="bar"><div class="url"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg><span>stelly.com.au</span></div><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></div>
+        <div class="thumb"><img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.stelly.com.au?w=800" alt="Stelly storefront" loading="lazy" width="800" height="475"></div>
+        <div class="slide-body">
+          <div><h3>Stelly</h3><p>Australian women's fashion</p></div>
+          <div class="slide-tags"><span class="tag">Filters</span><span class="tag">Search</span></div>
+        </div>
+      </a>
+
+    </div>
+    <button class="s-arrow next" id="sNext" aria-label="Next project">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+    </button>
+  </div>
+  <div class="s-dots" id="sDots" role="tablist" aria-label="Project slides"></div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="sec-head">
+    <h2>Where I've worked</h2>
+    <p class="comment">git log --since=2021, newest first</p>
+  </div>
+
+  <div class="log">
+    <div class="commit head reveal">
+      <div class="when">2024 - now <span class="ref">HEAD -&gt; main</span></div>
+      <h3>Sartoro <span class="role-type">full-time</span></h3>
+      <ul>
+        <li>Build custom sections and features from client requirements using JavaScript and Shopify Apps</li>
+        <li>Maintain and upgrade the company web app built with Vue.js</li>
+        <li>Maintain Node.js + React web apps, shipping UI updates and new features</li>
+        <li>Integrate third-party APIs to power new functionality</li>
+        <li>Manage and coordinate outsource partners across company web apps and websites</li>
+      </ul>
+    </div>
+
+    <div class="commit reveal">
+      <div class="when">2023 - 2024</div>
+      <h3>QDN Digital <span class="role-type">full-time</span></h3>
+      <ul>
+        <li>Built custom features for client campaigns and events using JavaScript and Shopify Apps</li>
+        <li>Led a small team of 1-2 junior developers, handling code review and Git merges</li>
+        <li>Delivered projects end-to-end: filters, search, upsell features and full store builds</li>
+        <li>Daily syncs with PM; maintenance and hotfixes with fast turnaround</li>
+      </ul>
+      <h3>Scentiment Ecommerce <span class="role-type">part-time</span></h3>
+      <ul>
+        <li>Custom sections and features per client requirements</li>
+        <li>Maintenance, support and hotfixes for clients' stores with quick response times</li>
+      </ul>
+    </div>
+
+    <div class="commit reveal">
+      <div class="when">2021 - 2023</div>
+      <h3>Burgess Commerce &amp; Meaningful Mantras <span class="role-type">full-time</span></h3>
+      <ul>
+        <li>Built and modified sections and custom features per client specs</li>
+        <li>Worked on projects from start to launch, covering filters, search, upsell and more</li>
+        <li>Maintenance, support and hotfixes with quick response times</li>
+        <li>Supported teammates and kept timelines on track</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="sec-head">
+    <h2>What I work with</h2>
+    <p class="comment">Shopify first, everything else in service of it</p>
+  </div>
+  <div class="bento">
+    <div class="cell shopify spot">
+      <span class="logo big-logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg)" aria-hidden="true"></span>
+      <div class="logos"><span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/shopify.svg)" role="img" aria-label="Shopify"></span></div>
+      <h3>Shopify, Liquid and the Shopify API</h3>
+      <p>Custom themes and sections, Shopify Apps, and API integrations, from first commit to launch and the hotfixes after.</p>
+      <div class="slide-tags">
+        <span class="tag">Theme builds</span><span class="tag">Custom sections</span><span class="tag">Filters &amp; search</span>
+        <span class="tag">Upsells</span><span class="tag">Subscriptions</span><span class="tag">Third-party APIs</span>
+      </div>
+    </div>
+    <div class="cell stats">
+      <div class="stat"><strong>4<em>+</em></strong><span>Years experience</span></div>
+      <div class="stat"><strong>15<em>+</em></strong><span>Stores launched</span></div>
+      <div class="stat"><strong>100<em>%</em></strong><span>Shopify focused</span></div>
+    </div>
+    <div class="cell spot">
+      <div class="logos"><span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/javascript.svg)" role="img" aria-label="JavaScript"></span></div>
+      <h3>JavaScript</h3>
+      <p>Storefront features and campaign builds.</p>
+    </div>
+    <div class="cell spot">
+      <div class="logos">
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/vuedotjs.svg)" role="img" aria-label="Vue"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/react.svg)" role="img" aria-label="React"></span>
+      </div>
+      <h3>Vue &amp; React</h3>
+      <p>Company web apps, maintained and extended.</p>
+    </div>
+    <div class="cell wide spot">
+      <div class="logos">
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/html5.svg)" role="img" aria-label="HTML"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/css3.svg)" role="img" aria-label="CSS"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/sass.svg)" role="img" aria-label="SCSS"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tailwindcss.svg)" role="img" aria-label="Tailwind"></span>
+      </div>
+      <h3>HTML, CSS, SCSS, Tailwind</h3>
+      <p>Faithful builds from the design file, responsive on every breakpoint.</p>
+    </div>
+    <div class="cell wide spot">
+      <div class="logos">
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/nodedotjs.svg)" role="img" aria-label="Node.js"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg)" role="img" aria-label="GitHub"></span>
+        <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/figma.svg)" role="img" aria-label="Figma"></span>
+      </div>
+      <h3>Node.js, GitHub, Figma</h3>
+      <p>Node services, code review and Git merges, design handoff.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact">
+  <h2>Let's build<br>your <span>store.</span></h2>
+  <p class="comment">open to full-time roles, agency partnerships and freelance Shopify projects. Based in Da Nang, Viet Nam, working with clients worldwide.</p>
+  <div class="mail-row reveal">
+    <a class="mail" href="mailto:nhatnguyendothanh@gmail.com">nhatnguyendothanh@gmail.com</a>
+    <button class="btn btn-ghost copy" id="copyMail" type="button">Copy email</button>
+  </div>
+  <div class="contact-links reveal">
+    <a class="btn btn-ghost" href="tel:+84935443369">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+      (+84) 935 443 369
+    </a>
+    <a class="btn btn-primary" href="/cv.pdf" download="Do-Thanh-Nhat-Nguyen-Shopify-Developer-CV.pdf">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+      Download CV (PDF)
+    </a>
+    <a class="btn btn-ghost" href="https://github.com/nguyendo1011" target="_blank" rel="noopener">
+      <span class="logo" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg);width:17px;height:17px" aria-hidden="true"></span>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2026 Do Thanh Nhat Nguyen, Shopify Developer</div></footer>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/chat.js" defer></script>
+
+</body>
+</html>
