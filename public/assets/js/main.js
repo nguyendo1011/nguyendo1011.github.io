@@ -49,6 +49,17 @@ if (!reduceMotion && window.gsap && window.ScrollSmoother) {
     start: 'top 90%',
     onEnter: b => gsap.to(b, { opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .08, overwrite: true }),
   });
+
+  // Shopify icon: 3D roll that swells to full size as its card crosses the viewport centre
+  const shopIcon = document.querySelector('.cell.shopify .logos .logo');
+  if (shopIcon) {
+    gsap.set(shopIcon, { transformPerspective: 500 });
+    gsap.timeline({ scrollTrigger: { trigger: '.cell.shopify', start: 'top bottom', end: 'bottom top', scrub: 1 } })
+      .fromTo(shopIcon,
+        { rotationY: -360, rotationX: 20, scale: .7 },
+        { rotationY: 0, rotationX: 0, scale: 1.5, ease: 'sine.inOut' })
+      .to(shopIcon, { rotationY: 360, rotationX: -20, scale: .7, ease: 'sine.inOut' });
+  }
 }
 
 // Typing loop on the role: type, hold 5s, erase, repeat

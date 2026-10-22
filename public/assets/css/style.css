@@ -328,6 +328,9 @@ a.slide:hover .bar > svg { color: var(--accent); transform: translate(2px, -2px)
   color: var(--accent); opacity: .12; z-index: -1;
 }
 .cell.shopify .slide-tags { margin-top: 10px; }
+/* Scroll-driven 3D icon (see main.js): bigger, accent, room to swell without hitting the heading */
+.cell.shopify .logos { margin-bottom: 18px; }
+.cell.shopify .logos .logo { width: 44px; height: 44px; color: var(--accent); will-change: transform; }
 .cell.stats { grid-column: span 2; flex-direction: row; justify-content: space-between; align-items: end; background: var(--surface-2); gap: 18px; }
 .stat strong { display: block; font: 600 clamp(2rem, 3.6vw, 2.8rem) / 1 var(--mono); letter-spacing: -.05em; color: var(--ink); }
 .stat strong em { font-style: normal; color: var(--accent); }
