@@ -291,6 +291,8 @@ a.slide:hover .bar > svg { color: var(--accent); transform: translate(2px, -2px)
 .commit li { position: relative; padding-left: 22px; margin-bottom: 6px; }
 .commit li::before { content: "+"; position: absolute; left: 0; font-family: var(--mono); color: var(--accent); }
 .commit ul + h3 { margin-top: 26px; }
+.commit .lead { color: var(--ink-soft); margin-top: 6px; max-width: 70ch; }
+.commit .slide-tags { margin-top: 14px; }
 
 /* ---- Stack bento: 6 items, 6 cells (4 x 3) ---- */
 .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
