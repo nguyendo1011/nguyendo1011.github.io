@@ -113,7 +113,16 @@ nav {
 .btn-ghost:hover { border-color: var(--accent-line); color: var(--accent); transform: translateY(-2px); }
 
 /* ---- Hero: split, copy left, live Liquid file right ---- */
-header { padding: 72px 0 88px; min-height: calc(100dvh - 64px); display: flex; align-items: center; }
+header { padding: 72px 0 88px; min-height: calc(100dvh - 64px); display: flex; align-items: center; position: relative; overflow: hidden; isolation: isolate; }
+header > .wrap { position: relative; z-index: 1; width: 100%; }
+/* Three.js "fabric" field behind the hero; faded at the edges so copy stays readable */
+.hero-bg {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity 1.2s ease;
+  -webkit-mask-image: radial-gradient(120% 90% at 70% 55%, #000 35%, transparent 80%);
+  mask-image: radial-gradient(120% 90% at 70% 55%, #000 35%, transparent 80%);
+}
+.hero-bg.on { opacity: 1; }
 .hero {
   display: grid; grid-template-columns: 1.08fr 1fr; gap: 56px; align-items: center;
 }
@@ -399,8 +408,33 @@ footer {
   padding: 12px 18px; box-shadow: 0 16px 40px -14px var(--shadow);
   transition: transform .25s cubic-bezier(.16, 1, .3, 1), border-color .2s;
 }
-.chat-fab .mono { color: var(--accent); font-weight: 600; }
+.chat-fab {
+  background: linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--surface);
+  animation: fab-in .7s 1.2s cubic-bezier(.34, 1.56, .64, 1) backwards;
+}
+@keyframes fab-in { from { opacity: 0; transform: translateY(24px) scale(.9); } }
+/* Terminal icon: tile with a blinking cursor */
+.fab-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 6px; font-weight: 600; font-size: 13px;
+  background: var(--accent); color: var(--accent-ink);
+  animation: fab-nudge 6s 2.5s ease-in-out infinite;
+}
+.fab-cur { animation: blink 1s step-end infinite; }
+@keyframes fab-nudge { 0%, 88%, 100% { transform: none; } 91% { transform: rotate(-12deg) scale(1.12); } 94% { transform: rotate(10deg) scale(1.12); } 97% { transform: rotate(-4deg); } }
+.fab-badge {
+  font: 600 10.5px var(--mono); letter-spacing: .04em; color: var(--accent);
+  border: 1px solid var(--accent-line); border-radius: 4px; padding: 1px 5px;
+}
+/* Pulse ring: draws the eye every few seconds without moving layout */
+.chat-fab::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 0 0 var(--accent-line);
+  animation: fab-ping 3s 2s ease-out infinite;
+}
+@keyframes fab-ping { 0% { box-shadow: 0 0 0 0 var(--accent-line); } 70%, 100% { box-shadow: 0 0 0 14px transparent; } }
 .chat-fab:hover { transform: translateY(-2px); border-color: var(--accent); }
+.chat-fab:hover .fab-icon { animation: none; transform: rotate(-8deg) scale(1.08); transition: transform .2s; }
 .chat-fab:active { transform: translateY(1px) scale(.98); }
 .chat-fab[aria-expanded="true"] { display: none; }
 .chat {
@@ -464,7 +498,7 @@ footer {
 .chat-form input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
 .chat-form .btn { padding: 10px 14px; }
 .chat-form .btn:disabled { opacity: .5; cursor: wait; }
-@media (prefers-reduced-motion: reduce) { .chat, .msg.wait::after { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .chat, .msg.wait::after, .chat-fab, .chat-fab::after, .fab-icon, .fab-cur { animation: none; } .hero-bg { transition: none; } }
 @media (max-width: 640px) {
   .chat-fab, .chat { --edge: 16px; bottom: 16px; }
 }

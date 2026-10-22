@@ -35,7 +35,7 @@
 </nav>
 
 <button class="chat-fab" id="chatFab" aria-expanded="false" aria-controls="chatPanel">
-  <span class="mono" aria-hidden="true">&gt;_</span> Ask about me
+  <span class="fab-icon mono" aria-hidden="true">&gt;<span class="fab-cur">_</span></span> Ask about me <span class="fab-badge">AI</span>
 </button>
 <div class="chat" id="chatPanel" role="dialog" aria-label="Ask about Nguyen's experience" hidden>
   <div class="chat-head">
@@ -67,6 +67,7 @@
 <div id="smooth-content">
 
 <header>
+<canvas class="hero-bg" id="heroBg" aria-hidden="true"></canvas>
 <div class="wrap hero">
   <div class="hero-copy">
     <div class="status"><span class="dot"></span>Available for Shopify projects</div>
@@ -325,6 +326,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/chat.js" defer></script>
+<script type="module" src="/assets/js/hero-bg.js"></script>
 
 </body>
 </html>
