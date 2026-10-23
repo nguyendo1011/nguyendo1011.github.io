@@ -17,6 +17,7 @@ Public profile used by the CV chatbot. Everything here is safe to share. Anythin
 | 2023 - 2024 | QDN Digital | Full-time | Client Shopify builds, team lead for 1-2 junior developers |
 | 2023 - 2024 | Scentiment Ecommerce | Part-time | Custom sections, maintenance, hotfixes |
 | 2021 - 2023 | Burgess Commerce & Meaningful Mantras | Full-time | Sections, custom features, full store builds |
+| 2021 - 2023 | DGK (skateboards, dgk.com) | Part-time | "Build a Skate" skateboard builder with custom part options |
 
 ## Sartoro (2024 - now)
 Sartoro is a made-to-measure menswear brand on Shopify. Nguyen builds most of its custom software, usually solo, from the storefront to the admin tools staff use every day.
@@ -118,8 +119,11 @@ Sartoro is a made-to-measure menswear brand on Shopify. Nguyen builds most of it
 - Projects from start to launch: filters, search, upsells and more.
 - Maintenance, support and hotfixes; supported teammates and kept timelines on track.
 
+## DGK (2021 - 2023, part-time)
+- Built the "Build a Skate" feature (https://dgk.com/pages/dgk-skateboard-builder): customers choose deck, trucks, wheels and other parts as custom options to assemble a complete skateboard.
+
 ## Live stores worked on
-Scentiment (home fragrance), Sartoro (custom menswear), Lasermaster (laser engraving equipment, B2B), Meaningful Mantras (candles, lifestyle), Hit Box Arcade (gaming controllers), Housenine (home and living), Stelly (Australian women's fashion).
+Scentiment (home fragrance), Sartoro (custom menswear), Lasermaster (laser engraving equipment, B2B), Meaningful Mantras (candles, lifestyle), Hit Box Arcade (gaming controllers), Housenine (home and living), DGK (skateboards, dgk.com).
 
 ## Side tools
 - Shopify Dev Quick Tools: Chrome extension for Shopify developers (theme detection, preview links, admin shortcuts).
