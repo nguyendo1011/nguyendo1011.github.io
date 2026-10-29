@@ -521,4 +521,8 @@ footer {
 @media (prefers-reduced-motion: reduce) { .chat, .msg.wait i, .chat-fab, .chat-fab::after, .fab-icon, .fab-cur { animation: none; } .hero-bg { transition: none; } }
 @media (max-width: 640px) {
   .chat-fab, .chat { --edge: 16px; bottom: 16px; }
+  /* Full-screen sheet + page scroll lock; 16px input stops iOS zoom-on-focus */
+  .chat { inset: 0; width: auto; height: 100dvh; border-radius: 0; border: 0; }
+  .chat-form input { font-size: 16px; }
+  html.chat-open, html.chat-open body { overflow: hidden; overscroll-behavior: none; }
 }

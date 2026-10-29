@@ -13,10 +13,13 @@
   try { sessionId = sessionStorage.getItem('chatSession') || crypto.randomUUID(); sessionStorage.setItem('chatSession', sessionId); }
   catch { sessionId = crypto.randomUUID(); }
 
+  // Touch devices: don't autofocus the input (it pops the keyboard and shifts the page)
+  const canFocus = matchMedia('(hover: hover)').matches;
   const open = state => {
     panel.hidden = !state;
     fab.setAttribute('aria-expanded', String(state));
-    (state ? input : fab).focus();
+    document.documentElement.classList.toggle('chat-open', state); // scroll lock (mobile, see CSS)
+    if (state ? canFocus : true) (state ? input : fab).focus();
   };
   fab.addEventListener('click', () => open(true));
   document.getElementById('chatClose').addEventListener('click', () => open(false));
@@ -100,7 +103,7 @@
       wait.textContent = e.message;
     } finally {
       send.disabled = false;
-      input.focus();
+      if (canFocus) input.focus();
     }
   }
 
