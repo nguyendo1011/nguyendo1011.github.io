@@ -6,7 +6,7 @@ const canvas = document.getElementById('heroBg');
 const header = canvas?.parentElement;
 const gl = canvas && (() => { try { return canvas.getContext('webgl2') || canvas.getContext('webgl'); } catch { return null; } })();
 if (gl) {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce), (max-width: 640px)').matches;
   const renderer = new THREE.WebGLRenderer({ canvas, context: gl, alpha: true, antialias: false });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 
@@ -59,6 +59,7 @@ if (gl) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    if (reduce) renderer.render(scene, camera);
   };
   resize();
   addEventListener('resize', resize);
