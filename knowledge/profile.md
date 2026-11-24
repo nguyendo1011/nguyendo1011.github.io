@@ -13,11 +13,24 @@ Public profile used by the CV chatbot. Everything here is safe to share. Anythin
 ## Timeline
 | Period | Company | Type | Focus |
 |---|---|---|---|
+| 2026 - now | EasyRubic (own product, easyrubic.com) | Owner & CEO | Rubik's cube solver and learning platform, website and mobile app |
 | 2024 - now | Sartoro (custom menswear and tailoring, sartoro.co) | Full-time | Storefront theme (main developer), custom Shopify apps, AI features, internal tools |
 | 2023 - 2024 | QDN Digital | Full-time | Client Shopify builds, team lead for 1-2 junior developers |
 | 2023 - 2024 | Scentiment Ecommerce | Part-time | Custom sections, maintenance, hotfixes |
 | 2021 - 2023 | Burgess Commerce & Meaningful Mantras | Full-time | Sections, custom features, full store builds |
 | 2021 - 2023 | DGK (skateboards, dgk.com) | Part-time | "Build a Skate" skateboard builder with custom part options |
+
+## EasyRubic (2026 - now, Owner & CEO)
+EasyRubic (https://easyrubic.com) is Nguyen's own product, started in September 2026: a platform that teaches anyone to solve a Rubik's cube, on the web and in a mobile app. Main language Vietnamese, with an English version. Nguyen is the owner and CEO and runs it end to end: product, pricing, code, content and growth. It runs alongside the Sartoro job.
+- Online solver: paint a 3x3 cube or paste a scramble, get a solution of 21 moves or fewer (Kociemba two-phase algorithm), played move by move on a 3D cube.
+- 3D cube simulator: 2x2 up to 7x7, plus Pyraminx, Skewb and Megaminx.
+- Step-by-step courses: beginner 7-step layer-by-layer method, CFOP, Roux, 2x2, 4x4 and 5x5. Every algorithm is checked by simulation: applied to its pictured case, it reaches the goal of the step. Algorithm library of OLL, PLL and F2L cases.
+- Speedcubing timer with WCA scrambles, average of 5 and 12, personal records; day-by-day training roadmaps with check days.
+- AI help chat (Cloudflare Workers AI): answers cube questions, can read a photo of the visitor's cube, reuses past answers with the same meaning, and blocks answers with move sequences not in the course.
+- Mobile app for iOS and Android (React Native, Expo, Three.js): scan a real cube with the camera, edit the cube state, solve it, learn and time solves.
+- Free to learn; a Pro plan unlocks advanced steps and removes daily limits, sold as in-app subscriptions (RevenueCat) and as one-time QR bank-transfer payments on the website (payOS). Paywall rules change remotely without a new app build.
+- Accounts, blog, notation guide, admin dashboard, first-party analytics, referral links and a Telegram bot that reports daily site stats.
+- Stack: TypeScript, Astro, React, React Native/Expo, Three.js, Cloudflare Workers, D1, R2, Workers AI, RevenueCat, payOS.
 
 ## Sartoro (2024 - now)
 Sartoro is a made-to-measure menswear brand on Shopify. Nguyen builds most of its custom software, usually solo, from the storefront to the admin tools staff use every day.
